@@ -158,7 +158,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 79b7025de0cb3514d993cc9ee431d1c4, type: 2}
+  - {fileID: 2100000, guid: f792cd0c0e52d01409773aaf2d3afc48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -243,7 +243,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 79b7025de0cb3514d993cc9ee431d1c4, type: 2}
+  - {fileID: 2100000, guid: f792cd0c0e52d01409773aaf2d3afc48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -374,54 +374,39 @@ Prefab:
       propertyPath: m_RootOrder
       value: 12
       objectReference: {fileID: 0}
-    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
-        type: 2}
-      propertyPath: bulletPrefab
-      value: 
-      objectReference: {fileID: 1988918516065922, guid: 36a785070e72a95488e25f79c0d2045e,
-        type: 2}
-    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
-        type: 2}
-      propertyPath: fireRate
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
-        type: 2}
-      propertyPath: maxRandomVariation
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
-        type: 2}
-      propertyPath: damage
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
-        type: 2}
-      propertyPath: targetEnemyType
-      value: GhostEnemy
-      objectReference: {fileID: 0}
     - target: {fileID: 1840711385621950, guid: a192f48be8c07495ab0a86f6fdb72457, type: 2}
       propertyPath: m_Name
       value: PlayerOneChild
       objectReference: {fileID: 0}
-    - target: {fileID: 1840711385621950, guid: a192f48be8c07495ab0a86f6fdb72457, type: 2}
-      propertyPath: m_TagString
-      value: ChildPlayer
+    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
+        type: 2}
+      propertyPath: fireRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
+        type: 2}
+      propertyPath: burstSize
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114280388718937672, guid: a192f48be8c07495ab0a86f6fdb72457,
         type: 2}
-      propertyPath: keyboardTestMode
-      value: 1
+      propertyPath: knockback
+      value: 400
       objectReference: {fileID: 0}
-    - target: {fileID: 114280388718937672, guid: a192f48be8c07495ab0a86f6fdb72457,
+    - target: {fileID: 114262585147229876, guid: a192f48be8c07495ab0a86f6fdb72457,
         type: 2}
-      propertyPath: moveSpeed
-      value: 10
+      propertyPath: maxRandomVariation
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 54170678053724980, guid: a192f48be8c07495ab0a86f6fdb72457,
         type: 2}
-      propertyPath: m_Constraints
-      value: 116
+      propertyPath: m_AngularDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54170678053724980, guid: a192f48be8c07495ab0a86f6fdb72457,
+        type: 2}
+      propertyPath: m_Drag
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a192f48be8c07495ab0a86f6fdb72457, type: 2}
@@ -749,7 +734,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 79b7025de0cb3514d993cc9ee431d1c4, type: 2}
+  - {fileID: 2100000, guid: f792cd0c0e52d01409773aaf2d3afc48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -783,7 +768,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1263257986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: -25}
+  m_LocalPosition: {x: 0, y: 5, z: -21.3}
   m_LocalScale: {x: 50, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -834,7 +819,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 79b7025de0cb3514d993cc9ee431d1c4, type: 2}
+  - {fileID: 2100000, guid: f792cd0c0e52d01409773aaf2d3afc48, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -913,6 +898,41 @@ Prefab:
       propertyPath: m_RootOrder
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 114760558566309618, guid: 09e947ef948304b01a47cd1c4dc14a81,
+        type: 2}
+      propertyPath: fireRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114760558566309618, guid: 09e947ef948304b01a47cd1c4dc14a81,
+        type: 2}
+      propertyPath: burstSize
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114360072022515380, guid: 09e947ef948304b01a47cd1c4dc14a81,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114360072022515380, guid: 09e947ef948304b01a47cd1c4dc14a81,
+        type: 2}
+      propertyPath: knockback
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 114760558566309618, guid: 09e947ef948304b01a47cd1c4dc14a81,
+        type: 2}
+      propertyPath: maxRandomVariation
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 54390754885159922, guid: 09e947ef948304b01a47cd1c4dc14a81,
+        type: 2}
+      propertyPath: m_AngularDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 54390754885159922, guid: 09e947ef948304b01a47cd1c4dc14a81,
+        type: 2}
+      propertyPath: m_Drag
+      value: 15
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09e947ef948304b01a47cd1c4dc14a81, type: 2}
   m_IsPrefabParent: 0
@@ -964,6 +984,11 @@ Prefab:
         type: 2}
       propertyPath: m_Constraints
       value: 116
+      objectReference: {fileID: 0}
+    - target: {fileID: 114484514661890966, guid: 7b5c93125b15a47fbb0544b52c5ee5a5,
+        type: 2}
+      propertyPath: knockback
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7b5c93125b15a47fbb0544b52c5ee5a5, type: 2}
