@@ -15,6 +15,9 @@ public class GunController : MonoBehaviour {
 
 	[SerializeField]
 	private int damage;
+
+	[SerializeField]
+	private int burstSize;
 	
 	[SerializeField]
 	private string targetEnemyType;
@@ -32,23 +35,32 @@ public class GunController : MonoBehaviour {
         TrackFireCooldown();
 	}
 
-    public void FireGun(Vector3 angleFired)
+    public bool FireGun(float angleFired, float shootingFreezeTime)
     {
-        if (!readyToFire) return;
+        if (!readyToFire) return false;
         readyToFire = false;
         timeSinceFire = 0;
 
-        GameObject bullet;
-        bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+	    var waitTime = shootingFreezeTime / burstSize;
+	    
+	    
+		StartCoroutine(SpawnBullet(angleFired, waitTime));
 
-        if (angleFired == Vector3.zero) angleFired = Vector3.right;
-
-        float variation = Random.Range(-maxRandomVariation, maxRandomVariation);
-        var angle = new Vector3(angleFired.x + variation, 0,  angleFired.z + variation);
-        bullet.GetComponent<Bullet>().FireBullet(angle, damage, targetEnemyType);
+	    return true;
     }
 
-    private void TrackFireCooldown()
+	private IEnumerator SpawnBullet(float angleFired, float waitTime)
+	{
+		for (int i = 0; i < burstSize; i++)
+		{
+			yield return new WaitForSeconds(waitTime);
+			GameObject bullet;
+			bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
+			bullet.GetComponent<Bullet>().FireBullet(angleFired, damage, targetEnemyType, maxRandomVariation);
+		}
+	}
+
+	private void TrackFireCooldown()
     {
         if (readyToFire) return;
         timeSinceFire += Time.deltaTime;

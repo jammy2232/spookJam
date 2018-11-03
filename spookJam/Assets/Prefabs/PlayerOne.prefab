@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 114280388718937672}
   m_Layer: 0
   m_Name: PlayerOne
-  m_TagString: Untagged
+  m_TagString: ChildPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,7 +117,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &114262585147229876
 MonoBehaviour:
@@ -130,11 +130,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66a2f74a2a143da48a33c2694318ecda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 0}
-  fireRate: 0
-  maxRandomVariation: 0
-  damage: 0
-  targetEnemyType: 
+  bulletPrefab: {fileID: 1988918516065922, guid: 36a785070e72a95488e25f79c0d2045e,
+    type: 2}
+  fireRate: 0.1
+  maxRandomVariation: 0.1
+  damage: 30
+  burstSize: 0
+  targetEnemyType: GhostEnemy
 --- !u!114 &114280388718937672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -152,9 +154,10 @@ MonoBehaviour:
   verticalAxisMovement: 8
   horizontalAxisLook: 9
   verticalAxisLook: 9
-  moveSpeed: 1
-  rotSpeed: 5
-  keyboardTestMode: 0
+  moveSpeed: 10
+  shootingFreezeTime: 0.05
+  keyboardTestMode: 1
+  health: 150
 --- !u!114 &114563615567249606
 MonoBehaviour:
   m_ObjectHideFlags: 1

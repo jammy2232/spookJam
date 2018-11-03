@@ -31,6 +31,13 @@ public class EnemyAI : MonoBehaviour, IHealth
     // The time the whole object should exist
     public float timeToDie;
 
+    [SerializeField]
+    private float knockback = 500;
+
+    private bool hittable = true;
+
+    private float hitInvlunerabilityTimer = 0.5f;
+
     // Use this for initialization
     void Start ()
     {
@@ -119,9 +126,19 @@ public class EnemyAI : MonoBehaviour, IHealth
 
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(int damage, float hitAngle)
     {
+        if (!hittable) return;
         health -= damage;
+        rb.AddForce(hitAngle*knockback, 0 , 0);
+        
+    }
+
+    private IEnumerator StartInvincibility()
+    {
+        hittable = false;
+        yield return new WaitForSeconds(hitInvlunerabilityTimer);
+        hittable = true;
     }
 
 }

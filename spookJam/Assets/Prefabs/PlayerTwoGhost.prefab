@@ -137,8 +137,9 @@ MonoBehaviour:
   horizontalAxisLook: 9
   verticalAxisLook: 9
   moveSpeed: 1
-  rotSpeed: 5
+  shootingFreezeTime: 0.05
   keyboardTestMode: 1
+  health: 150
 --- !u!114 &114614788147132946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -166,6 +167,7 @@ MonoBehaviour:
   fireRate: 10
   maxRandomVariation: 0.1
   damage: 30
+  burstSize: 0
   targetEnemyType: RealEnemy
 --- !u!114 &114912629830491712
 MonoBehaviour:

@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour, IHealth {
 
     private enum PLAYERSTATE
     {
         moving,
+        firing,
         dead
     }
 
@@ -18,19 +19,19 @@ public class PlayerController : MonoBehaviour {
 
     private string joystickName;
 
-    [SerializeField]
+
     private string fireButton = "10";
 
-    [SerializeField]
+
     private string horizontalAxisMovement = "8";
 
-    [SerializeField]
+
     private string verticalAxisMovement = "8";
 
-    [SerializeField]
+
     private string horizontalAxisLook = "9";
 
-    [SerializeField]
+
     private string verticalAxisLook = "9";
     
 
@@ -38,11 +39,17 @@ public class PlayerController : MonoBehaviour {
     private float moveSpeed = 1.0f;
 
     [SerializeField]
-    private float rotSpeed = 5.0f;
-
+    private float shootingFreezeTime = 0.05f;
+    
     [SerializeField]
     private bool keyboardTestMode = false;
 
+    [SerializeField]
+    private int health = 150;
+
+    [SerializeField]
+    private float knockback = 10;
+    
     private Rigidbody rigidbody;
 
     private GunController gunController;
@@ -74,12 +81,44 @@ public class PlayerController : MonoBehaviour {
         if (keyboardTestMode && !Input.GetButton("Fire1")) return;
         else if (!keyboardTestMode && !Input.GetButton(joystickName + fireButton)) return;
         
+        
+        
         if (keyboardTestMode)
-             gunController.FireGun(new Vector3(Input.GetAxisRaw("HorizontalAim"), 0 , Input.GetAxisRaw("VerticalAim")));
+        {
+            var angleFired =  Input.GetAxisRaw("HorizontalAim");
+            FireGun(angleFired);
+        }
         else
-             gunController.FireGun(new Vector3(Input.GetAxis(joystickName + horizontalAxisLook), 0 , Input.GetAxis(joystickName + verticalAxisLook)));
+        {
+            var angleFired = Input.GetAxis(joystickName + horizontalAxisLook);
+            FireGun(angleFired);
+            
+        }
     }
 
+    private void FireGun(float angleFired)
+    {
+        if (angleFired == 0) angleFired = 1.0f;
+
+        if (gunController.FireGun(angleFired, shootingFreezeTime))
+        {
+            StartCoroutine(StartFiring());
+            rigidbody.AddForce(-angleFired*knockback, 0, 0);
+        }
+    }
+
+    private IEnumerator StartFiring()
+    {
+        playerState = PLAYERSTATE.firing;
+        yield return new WaitForSeconds(shootingFreezeTime);
+
+        if (health > 0)
+            playerState = PLAYERSTATE.moving;
+        else
+            playerState = PLAYERSTATE.dead;
+
+    }
+    
     //Get movement velocity
     private void GetMovement()
     {
@@ -106,6 +145,11 @@ public class PlayerController : MonoBehaviour {
         {
             rigidbody.MovePosition((rigidbody.position + velocity * Time.deltaTime));
         }
+    }
+
+    public void TakeDamage(int damage, float hitAngle)
+    {
+        health -= damage;
     }
 
 }

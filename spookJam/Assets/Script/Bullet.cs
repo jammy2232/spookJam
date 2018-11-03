@@ -11,6 +11,9 @@ public class Bullet : MonoBehaviour {
 
 	private int damage;
 
+	private float hitAngle;
+	
+
 	// Use this for initialization
 	void Start () {
 		
@@ -21,18 +24,20 @@ public class Bullet : MonoBehaviour {
 		
 	}
 
-    public void FireBullet(Vector3 angle, int dmg, string targetEnemy)
+    public void FireBullet(float angle, int dmg, string targetEnemy, float maxRandomVariation)
     {
+	    hitAngle = angle;
 	    damage = dmg;
 	    targetTag = targetEnemy;
-        StartCoroutine(WaitTillFire(angle));
+        StartCoroutine(WaitTillFire(angle, maxRandomVariation));
     }
 
-    private IEnumerator WaitTillFire(Vector3 angle)
+    private IEnumerator WaitTillFire(float angle, float maxRandomVariation)
     {
         yield return new WaitForEndOfFrame();
-        
-        GetComponent<Rigidbody>().AddForce(angle * bulletSpeed);
+	    var random = Random.Range(-maxRandomVariation, maxRandomVariation);
+	    var force = transform.right * angle * bulletSpeed;
+        GetComponent<Rigidbody>().AddForce(new Vector3 (force.x, force.y, force.z + random));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -44,24 +49,25 @@ public class Bullet : MonoBehaviour {
 
             if(obj != null)
             {
-                obj.TakeDamage(damage);
+                obj.TakeDamage(damage, hitAngle);
             }
             else
             {
                 Debug.Log(gameObject.name + " Attempted to hit with " + other.gameObject.name + " but not IHealth");
             }
 
-		    DestroyBullet();
+		    StartCoroutine(DestroyBullet());
 
 	    }
 	    else if (other.gameObject.CompareTag(Tags.WallTag))
 	    {
-		    DestroyBullet();
+		   StartCoroutine(DestroyBullet());
 	    }
     }
 
-	private void DestroyBullet()
+	private IEnumerator DestroyBullet()
 	{
+		yield return new WaitForEndOfFrame();
 		Destroy(this);
 	}
 
