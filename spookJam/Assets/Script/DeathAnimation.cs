@@ -24,7 +24,6 @@ public class DeathAnimation : ScriptableObject
         particle.transform.position = Position;
         // Get the reference to the object 
         persistanceRenderObject = dieingThing;
-
         // Wait for the animation to play
         yield return new WaitForSeconds(timeToDie);
         // Delete the objects once thier dead

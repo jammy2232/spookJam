@@ -39,8 +39,19 @@ public class Bullet : MonoBehaviour {
     {
 	    if (other.gameObject.CompareTag(targetTag))
 	    {
-		    gameObject.GetComponent<IHealth>().TakeDamage(damage);
+            IHealth obj = gameObject.GetComponent<IHealth>();
+
+            if(obj != null)
+            {
+                obj.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.Log(gameObject.name + " Attempted to hit with bullet but not IHealth");
+            }
+
 		    DestroyBullet();
+
 	    }
 	    else if (other.gameObject.CompareTag(Tags.WallTag))
 	    {
