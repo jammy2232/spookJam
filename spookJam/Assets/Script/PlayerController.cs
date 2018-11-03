@@ -11,22 +11,27 @@ public class PlayerController : MonoBehaviour {
         dead
     }
 
-    private PLAYERSTATE playerState;
+    private PLAYERSTATE playerState = PLAYERSTATE.moving;
 
     [SerializeField]
-    private string fireButton = "Fire1_P1";
+    private int playerNumber = 1;
+
+    private string joystickName;
 
     [SerializeField]
-    private string horizontalAxisMovement = "Horizontal_P1";
+    private string fireButton = "10";
 
     [SerializeField]
-    private string verticalAxisMovement = "Vertical_P1";
+    private string horizontalAxisMovement = "8";
 
     [SerializeField]
-    private string horizontalAxisLook = "Joystick X_P1";
+    private string verticalAxisMovement = "8";
 
     [SerializeField]
-    private string verticalAxisLook = "Joystick Y_P1";
+    private string horizontalAxisLook = "9";
+
+    [SerializeField]
+    private string verticalAxisLook = "9";
     
 
     [SerializeField]
@@ -48,7 +53,8 @@ public class PlayerController : MonoBehaviour {
     {
         rigidbody = GetComponent<Rigidbody>();
         gunController = GetComponentInChildren<GunController>();
-	}
+        joystickName = "joystick " + playerNumber + " button ";
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -65,13 +71,13 @@ public class PlayerController : MonoBehaviour {
 
     private void ControlGun()
     {
-        if (keyboardTestMode && !Input.GetButton("FirePC")) return;
-        else if (!keyboardTestMode && !Input.GetButton(fireButton)) return;
+        if (keyboardTestMode && !Input.GetButton("Fire1")) return;
+        else if (!keyboardTestMode && !Input.GetButton(joystickName + fireButton)) return;
         
         if (keyboardTestMode)
-             gunController.FireGun(new Vector3(Input.GetAxisRaw("MouseX"), 0 , Input.GetAxisRaw("MouseY")));
+             gunController.FireGun(new Vector3(Input.GetAxisRaw("HorizontalAim"), 0 , Input.GetAxisRaw("VerticalAim")));
         else
-             gunController.FireGun(new Vector3(Input.GetAxis(horizontalAxisLook), 0 , Input.GetAxis(verticalAxisLook)));
+             gunController.FireGun(new Vector3(Input.GetAxis(joystickName + horizontalAxisLook), 0 , Input.GetAxis(joystickName + verticalAxisLook)));
     }
 
     //Get movement velocity
@@ -81,13 +87,13 @@ public class PlayerController : MonoBehaviour {
         float zDelt;
         if (keyboardTestMode)
         {
-            xDelt = Input.GetAxisRaw("HorizontalPC");
-            zDelt = Input.GetAxisRaw("VerticalPC");
+            xDelt = Input.GetAxisRaw("Horizontal");
+            zDelt = Input.GetAxisRaw("Vertical");
         }
         else
         {
-            xDelt = Input.GetAxisRaw(horizontalAxisMovement);
-            zDelt = Input.GetAxisRaw(verticalAxisMovement);
+            xDelt = Input.GetAxisRaw(joystickName + horizontalAxisMovement);
+            zDelt = Input.GetAxisRaw(joystickName + verticalAxisMovement);
         }
 
         //Adjust for rotation

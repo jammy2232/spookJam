@@ -13,6 +13,12 @@ public class GunController : MonoBehaviour {
     [SerializeField]
     private float maxRandomVariation;
 
+	[SerializeField]
+	private int damage;
+	
+	[SerializeField]
+	private string targetEnemyType;
+	
     private float timeSinceFire;
 
     private bool readyToFire;
@@ -39,7 +45,7 @@ public class GunController : MonoBehaviour {
 
         float variation = Random.Range(-maxRandomVariation, maxRandomVariation);
         var angle = new Vector3(angleFired.x + variation, 0,  angleFired.z + variation);
-        bullet.GetComponent<Bullet>().FireBullet(angle);
+        bullet.GetComponent<Bullet>().FireBullet(angle, damage, targetEnemyType);
     }
 
     private void TrackFireCooldown()

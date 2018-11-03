@@ -10,5 +10,7 @@ public class Tags {
     public static string RealEnemyTag = "RealEnemy";
 
 
+    public static string WallTag = "Wall";
+
 
 }

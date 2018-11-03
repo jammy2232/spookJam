@@ -7,8 +7,9 @@ public class Bullet : MonoBehaviour {
     [SerializeField]
     private float bulletSpeed = 500.0f;
 
-    [SerializeField]
-    private string TargetTag;
+    private string targetTag;
+
+	private int damage;
 
 	// Use this for initialization
 	void Start () {
@@ -20,8 +21,10 @@ public class Bullet : MonoBehaviour {
 		
 	}
 
-    public void FireBullet(Vector3 angle)
+    public void FireBullet(Vector3 angle, int dmg, string targetEnemy)
     {
+	    damage = dmg;
+	    targetTag = targetEnemy;
         StartCoroutine(WaitTillFire(angle));
     }
 
@@ -34,6 +37,19 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        
+	    if (other.gameObject.CompareTag(targetTag))
+	    {
+		    gameObject.GetComponent<IHealth>().TakeDamage(damage);
+		    DestroyBullet();
+	    }
+	    else if (other.gameObject.CompareTag(Tags.WallTag))
+	    {
+		    DestroyBullet();
+	    }
     }
+
+	private void DestroyBullet()
+	{
+		DestroyImmediate(this);
+	}
 }
