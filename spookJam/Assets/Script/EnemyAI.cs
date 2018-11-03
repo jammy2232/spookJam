@@ -14,7 +14,6 @@ public class EnemyAI : MonoBehaviour
     public State state = State.Alive;
     public float forceMovement = 1.0f;
 
-    public DeathAnimation death;
     public Sprite deadSprite;
 
     [HideInInspector]
@@ -24,8 +23,14 @@ public class EnemyAI : MonoBehaviour
     private Rigidbody rb;
     private SpriteRenderer sr;
 
-	// Use this for initialization
-	void Start ()
+    // Effect to Spawn
+    public GameObject effect;
+
+    // The time the whole object should exist
+    public float timeToDie;
+
+    // Use this for initialization
+    void Start ()
     {
 
         // Check there is a valid target
@@ -48,6 +53,11 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
 
+        if(Input.GetKey(KeyCode.E))
+        {
+            state = State.Dieing;
+        }
+
         switch (state)
         {
             case State.Alive:
@@ -55,10 +65,12 @@ public class EnemyAI : MonoBehaviour
                 break;
             case State.Dieing:
                 sr.sprite = deadSprite;
-                Destroy(rb);
-                Destroy(GetComponent<CapsuleCollider>());
-                death.Execute(transform.position, gameObject);
-                Destroy(this);
+                rb.isKinematic = true;
+                GetComponent<CapsuleCollider>().enabled = false;;
+                StartCoroutine(Die());
+                state = State.Dead;
+                break;
+            case State.Dead:
                 break;
         }
 
@@ -80,6 +92,22 @@ public class EnemyAI : MonoBehaviour
             directionToTarget.y = 0.0f;
             rb.AddForce(directionToTarget.normalized * forceMovement);
         }
+
+    }
+
+
+    public IEnumerator Die()
+    {
+
+        // Instanciate the particle system
+        GameObject particle = Instantiate(effect);
+        // Place it in the correct position
+        particle.transform.position = transform.position;
+        // Wait for the animation to play
+        yield return new WaitForSeconds(timeToDie);
+        // Delete the objects once thier dead
+        Destroy(gameObject);
+        Destroy(particle);
 
     }
 
