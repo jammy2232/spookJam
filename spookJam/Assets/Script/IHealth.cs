@@ -5,5 +5,5 @@ using UnityEngine;
 public interface IHealth
 {
 
-	int TakeDamage(int damage);
+	void TakeDamage(int damage);
 }

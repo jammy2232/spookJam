@@ -37,10 +37,22 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+
 	    if (other.gameObject.CompareTag(targetTag))
 	    {
-		    gameObject.GetComponent<IHealth>().TakeDamage(damage);
+            IHealth obj = other.gameObject.GetComponent<IHealth>();
+
+            if(obj != null)
+            {
+                obj.TakeDamage(damage);
+            }
+            else
+            {
+                Debug.Log(gameObject.name + " Attempted to hit with " + other.gameObject.name + " but not IHealth");
+            }
+
 		    DestroyBullet();
+
 	    }
 	    else if (other.gameObject.CompareTag(Tags.WallTag))
 	    {
@@ -50,6 +62,7 @@ public class Bullet : MonoBehaviour {
 
 	private void DestroyBullet()
 	{
-		DestroyImmediate(this);
+		Destroy(this);
 	}
+
 }

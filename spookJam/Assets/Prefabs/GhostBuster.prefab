@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 54299537633196518}
   m_Layer: 0
   m_Name: GhostBuster
-  m_TagString: Untagged
+  m_TagString: RealEnemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -87,7 +87,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &114227500484879874
 MonoBehaviour:
@@ -103,9 +103,10 @@ MonoBehaviour:
   type: 1
   state: 0
   forceMovement: 3
-  death: {fileID: 0}
-  deadSprite: {fileID: 0}
+  deadSprite: {fileID: 21300000, guid: 0998917c87587a44eacfd2e9b026aa11, type: 3}
   Target: {fileID: 0}
+  effect: {fileID: 1056309017177012, guid: d14bf6a52bf654075b70932fdecd2bd8, type: 2}
+  timeToDie: 3
 --- !u!114 &114703929690092600
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,8 +140,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212865209261915772
