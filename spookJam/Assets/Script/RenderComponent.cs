@@ -6,6 +6,7 @@ public class RenderComponent : MonoBehaviour
 {
 
     public Sprite spriteToRender = null;
+    [HideInInspector]
     public SpriteRenderer spriteRenderer;
 
     // Use this for initialization
