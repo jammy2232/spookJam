@@ -4,11 +4,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(RenderComponent))]
-public class EnemyAI : MonoBehaviour
+public class EnemyAI : MonoBehaviour, IHealth
 {
     public enum Type { Ghost, Buster }
 
     public enum State { Alive, Dieing, Dead }
+
+    private int health = 100;
 
     public Type type = Type.Ghost;
     public State state = State.Alive;
@@ -61,6 +63,12 @@ public class EnemyAI : MonoBehaviour
         switch (state)
         {
             case State.Alive:
+
+                if(health < 0)
+                {
+                    state = State.Dieing;
+                }
+
                 Move();
                 break;
             case State.Dieing:
@@ -109,6 +117,11 @@ public class EnemyAI : MonoBehaviour
         Destroy(gameObject);
         Destroy(particle);
 
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 
 }

@@ -87,8 +87,8 @@ public class PlayerController : MonoBehaviour {
         float zDelt;
         if (keyboardTestMode)
         {
-            xDelt = Input.GetAxisRaw("Horizontal");
-            zDelt = Input.GetAxisRaw("Vertical");
+            xDelt = Input.GetAxis("Horizontal");
+            zDelt = Input.GetAxis("Vertical");
         }
         else
         {

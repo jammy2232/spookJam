@@ -50,6 +50,6 @@ public class Bullet : MonoBehaviour {
 
 	private void DestroyBullet()
 	{
-		DestroyImmediate(this);
+		Destroy(this);
 	}
 }
