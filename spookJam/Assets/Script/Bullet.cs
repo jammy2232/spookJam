@@ -37,9 +37,10 @@ public class Bullet : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+
 	    if (other.gameObject.CompareTag(targetTag))
 	    {
-            IHealth obj = gameObject.GetComponent<IHealth>();
+            IHealth obj = other.gameObject.GetComponent<IHealth>();
 
             if(obj != null)
             {
@@ -47,7 +48,7 @@ public class Bullet : MonoBehaviour {
             }
             else
             {
-                Debug.Log(gameObject.name + " Attempted to hit with bullet but not IHealth");
+                Debug.Log(gameObject.name + " Attempted to hit with " + other.gameObject.name + " but not IHealth");
             }
 
 		    DestroyBullet();
@@ -63,4 +64,5 @@ public class Bullet : MonoBehaviour {
 	{
 		Destroy(this);
 	}
+
 }
