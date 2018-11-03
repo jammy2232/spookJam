@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 
     private GunController gunController;
 
+    private RenderComponent playerRenderer;
 
 	// Use this for initialization
 	void Start ()
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour {
         rigidbody = GetComponent<Rigidbody>();
         gunController = GetComponentInChildren<GunController>();
         joystickName = "joystick " + playerNumber + " button ";
+        playerRenderer = GetComponent<RenderComponent>();
     }
 	
 	// Update is called once per frame
@@ -83,6 +85,7 @@ public class PlayerController : MonoBehaviour {
     //Get movement velocity
     private void GetMovement()
     {
+
         float xDelt;
         float zDelt;
         if (keyboardTestMode)
@@ -95,6 +98,24 @@ public class PlayerController : MonoBehaviour {
             xDelt = Input.GetAxisRaw(joystickName + horizontalAxisMovement);
             zDelt = Input.GetAxisRaw(joystickName + verticalAxisMovement);
         }
+
+        // Update hte render of the character
+        bool goingUpwards = false;
+        bool goingLeft = false;
+
+        if (xDelt < 0.0f)
+        {
+            goingLeft = true;
+        }
+
+        if (zDelt <= 0.0f)
+        {
+            goingUpwards = true;
+        }
+
+        // Apply the new graphics
+        playerRenderer.ChangeSpriteDirection(goingUpwards, goingLeft);
+
 
         //Adjust for rotation
         var horizMove = transform.right * xDelt;

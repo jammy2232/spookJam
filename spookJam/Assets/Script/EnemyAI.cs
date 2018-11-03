@@ -7,15 +7,12 @@ using UnityEngine;
 public class EnemyAI : MonoBehaviour, IHealth
 {
     public enum Type { Ghost, Buster }
-
     public enum State { Alive, Dieing, Dead }
 
     private int health = 100;
-
     public Type type = Type.Ghost;
     public State state = State.Alive;
     public float forceMovement = 1.0f;
-
     public Sprite deadSprite;
 
     [HideInInspector]
@@ -44,7 +41,7 @@ public class EnemyAI : MonoBehaviour, IHealth
         }
 
         // Get reference to the sprite renderer
-        sr = GetComponent<RenderComponent>().spriteRenderer;
+      //  sr = GetComponent<RenderComponent>().spriteRenderer;
 
         // Get the rigid body
         rb = GetComponent<Rigidbody>();
@@ -70,9 +67,10 @@ public class EnemyAI : MonoBehaviour, IHealth
                 }
 
                 Move();
+
                 break;
             case State.Dieing:
-                sr.sprite = deadSprite;
+             //   sr.sprite = deadSprite;
                 rb.isKinematic = true;
                 GetComponent<CapsuleCollider>().enabled = false;;
                 StartCoroutine(Die());
@@ -116,8 +114,8 @@ public class EnemyAI : MonoBehaviour, IHealth
         // Delete the objects once thier dead
         Destroy(gameObject);
         Destroy(particle);
-
     }
+
 
     public void TakeDamage(int damage)
     {
