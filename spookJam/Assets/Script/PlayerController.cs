@@ -23,9 +23,6 @@ public class PlayerController : MonoBehaviour, IHealth {
     private string VerticalAim;
     private string Fire;
 
-    [SerializeField]
-    private bool keyboardTestMode = false;
-
     // Setting the speed for movement
     [SerializeField]
     private float moveSpeed = 1.0f;
@@ -98,7 +95,10 @@ public class PlayerController : MonoBehaviour, IHealth {
 
     private void ControlGun()
     {
-       if (!Input.GetButton(Fire)) return;
+
+        Debug.Log(Input.GetAxis(Fire));
+
+       if (Input.GetAxis(Fire) < 0.2f) return;
        
         var angleFired = Input.GetAxis(HorizontalAim);
         FireGun(angleFired);
@@ -137,8 +137,6 @@ public class PlayerController : MonoBehaviour, IHealth {
 
         xDelt = Input.GetAxis(Horizontal);
         zDelt = Input.GetAxis(Vertical);
-
-        Debug.Log(zDelt);
 
         // Update the render of the character
         bool goingUpwards = false;
