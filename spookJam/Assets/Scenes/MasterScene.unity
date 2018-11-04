@@ -797,7 +797,7 @@ Prefab:
     - target: {fileID: 114280388718937672, guid: a192f48be8c07495ab0a86f6fdb72457,
         type: 2}
       propertyPath: keyboardTestMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114280388718937672, guid: a192f48be8c07495ab0a86f6fdb72457,
         type: 2}
@@ -1047,6 +1047,10 @@ Prefab:
     - target: {fileID: 4606188474706664, guid: 09e947ef948304b01a47cd1c4dc14a81, type: 2}
       propertyPath: m_RootOrder
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467473575496654, guid: 09e947ef948304b01a47cd1c4dc14a81, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 09e947ef948304b01a47cd1c4dc14a81, type: 2}

@@ -75,7 +75,7 @@ public class RenderComponent : MonoBehaviour
     private void Update()
     {
 
-        // apply the bobing 
+        // apply the bobing As required
         spriteRenderer.gameObject.transform.position += new Vector3(0.0f, bobAmplitude * Mathf.Sin(Time.fixedTime * bobFrequency), 0.0f);
 
     }

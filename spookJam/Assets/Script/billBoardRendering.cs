@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class billBoardRendering : MonoBehaviour {
+public class billBoardRendering : MonoBehaviour 
+{
 
     // This is the static target look
     public static Transform targetLook;
@@ -14,4 +15,5 @@ public class billBoardRendering : MonoBehaviour {
         transform.LookAt(targetLook);
         transform.Rotate(transform.up, Mathf.Deg2Rad * 180.0f);
 	}
+
 }

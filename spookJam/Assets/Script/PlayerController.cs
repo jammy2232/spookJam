@@ -12,41 +12,26 @@ public class PlayerController : MonoBehaviour {
     }
 
     private PLAYERSTATE playerState = PLAYERSTATE.moving;
+    public enum PlayerNumber { PLAYER1, PLAYER2, KEYBOARDTEST };
 
-    [SerializeField]
-    private int playerNumber = 1;
-
-    private string joystickName;
-
-    [SerializeField]
-    private string fireButton = "10";
-
-    [SerializeField]
-    private string horizontalAxisMovement = "8";
-
-    [SerializeField]
-    private string verticalAxisMovement = "8";
-
-    [SerializeField]
-    private string horizontalAxisLook = "9";
-
-    [SerializeField]
-    private string verticalAxisLook = "9";
-    
-
-    [SerializeField]
-    private float moveSpeed = 1.0f;
-
-    [SerializeField]
-    private float rotSpeed = 5.0f;
+    // Handling the input device
+    public PlayerNumber playerNumber;
+    private string Horizontal;
+    private string Vertical;
+    private string HorizontalAim;
+    private string VerticalAim;
+    private string Fire;
 
     [SerializeField]
     private bool keyboardTestMode = false;
 
+    // Setting the speed for movement
+    [SerializeField]
+    private float moveSpeed = 1.0f;
+ 
+    // private variables
     private Rigidbody rigidbody;
-
     private GunController gunController;
-
     private RenderComponent playerRenderer;
 
 	// Use this for initialization
@@ -54,8 +39,34 @@ public class PlayerController : MonoBehaviour {
     {
         rigidbody = GetComponent<Rigidbody>();
         gunController = GetComponentInChildren<GunController>();
-        joystickName = "joystick " + playerNumber + " button ";
         playerRenderer = GetComponent<RenderComponent>();
+
+        // Setup the player input
+        if(playerNumber == PlayerNumber.PLAYER1)
+        {
+            Horizontal = "Horizontal1";
+            Vertical = "Vertical1";
+            HorizontalAim = "HorizontalAim1";
+            VerticalAim = "VerticalAim1";
+            Fire = "Fire1";
+        }
+        else if (playerNumber == PlayerNumber.PLAYER2)
+        {
+            Horizontal = "Horizontal2";
+            Vertical = "Vertical2";
+            HorizontalAim = "HorizontalAim2";
+            VerticalAim = "VerticalAim2";
+            Fire = "Fire2";
+        }
+        else
+        {
+            Horizontal = "Horizontal";
+            Vertical = "Vertical";
+            HorizontalAim = "KeyboardHorizontalAim";
+            VerticalAim = "KeyboardVerticalAim";
+            Fire = "KeyboardFire";
+        }
+
     }
 	
 	// Update is called once per frame
@@ -73,33 +84,22 @@ public class PlayerController : MonoBehaviour {
 
     private void ControlGun()
     {
-        if (keyboardTestMode && !Input.GetButton("Fire1")) return;
-        else if (!keyboardTestMode && !Input.GetButton(joystickName + fireButton)) return;
-        
-        if (keyboardTestMode)
-             gunController.FireGun(new Vector3(Input.GetAxisRaw("HorizontalAim"), 0 , Input.GetAxisRaw("VerticalAim")));
-        else
-             gunController.FireGun(new Vector3(Input.GetAxis(joystickName + horizontalAxisLook), 0 , Input.GetAxis(joystickName + verticalAxisLook)));
+        gunController.FireGun(new Vector3(Input.GetAxis(HorizontalAim), 0 , Input.GetAxis(VerticalAim)));
     }
 
     //Get movement velocity
     private void GetMovement()
     {
 
-        float xDelt;
-        float zDelt;
-        if (keyboardTestMode)
-        {
-            xDelt = Input.GetAxis("Horizontal");
-            zDelt = Input.GetAxis("Vertical");
-        }
-        else
-        {
-            xDelt = Input.GetAxisRaw(joystickName + horizontalAxisMovement);
-            zDelt = Input.GetAxisRaw(joystickName + verticalAxisMovement);
-        }
+        float xDelt = 0.0f;
+        float zDelt = 0.0f;
 
-        // Update hte render of the character
+        xDelt = Input.GetAxis(Horizontal);
+        zDelt = Input.GetAxis(Vertical);
+
+        Debug.Log(zDelt);
+
+        // Update the render of the character
         bool goingUpwards = false;
         bool goingLeft = false;
 
@@ -116,7 +116,6 @@ public class PlayerController : MonoBehaviour {
         // Apply the new graphics
         playerRenderer.ChangeSpriteDirection(goingUpwards, goingLeft);
 
-
         //Adjust for rotation
         var horizMove = transform.right * xDelt;
         var vertMove = transform.forward * zDelt;
@@ -127,6 +126,7 @@ public class PlayerController : MonoBehaviour {
         {
             rigidbody.MovePosition((rigidbody.position + velocity * Time.deltaTime));
         }
+    
     }
 
 }
