@@ -40,13 +40,14 @@ GameObject:
   - component: {fileID: 114912629830491712}
   - component: {fileID: 54390754885159922}
   - component: {fileID: 114360072022515380}
+  - component: {fileID: 135944442992589438}
   m_Layer: 0
   m_Name: PlayerTwoGhost
   m_TagString: GhostPlayer
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1497271096819516
 GameObject:
   m_ObjectHideFlags: 0
@@ -70,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322693477350452}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4606188474706664}
@@ -83,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1497271096819516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 3.5, y: -0.38, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4606188474706664}
@@ -112,12 +113,12 @@ Rigidbody:
   m_GameObject: {fileID: 1467473575496654}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.3
+  m_Drag: 50
   m_AngularDrag: 0.1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &114360072022515380
 MonoBehaviour:
@@ -130,16 +131,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27032922a4142074996997decb56f6f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 2
-  fireButton: 10
-  horizontalAxisMovement: 8
-  verticalAxisMovement: 8
-  horizontalAxisLook: 9
-  verticalAxisLook: 9
-  moveSpeed: 1
+  playerState: 0
+  platform: 0
+  playerNumber: 1
+  moveSpeed: 10
   shootingFreezeTime: 0.05
-  keyboardTestMode: 1
   health: 150
+  knockback: 10000
+  die: 0
 --- !u!114 &114614788147132946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -164,10 +163,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1988918516065922, guid: 36a785070e72a95488e25f79c0d2045e,
     type: 2}
-  fireRate: 10
-  maxRandomVariation: 0.1
+  fireRate: 0.5
+  maxRandomVariation: 80
   damage: 30
-  burstSize: 0
+  burstSize: 3
   targetEnemyType: RealEnemy
 --- !u!114 &114912629830491712
 MonoBehaviour:
@@ -180,8 +179,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5bed27acd090343a38fb14bcbbdd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteToRender: {fileID: 21300000, guid: af2ec9fd95f580641ab2fb9f429ee8cf, type: 3}
-  spriteRenderer: {fileID: 0}
+  backSprite: {fileID: 21300000, guid: abe440ce4fad44c16b61ff651f8a3811, type: 3}
+  frontSprite: {fileID: 21300000, guid: 19dfbc27d920949db99239b61e1b901b, type: 3}
+  bobAmplitude: 0
+  bobFrequency: 0
+--- !u!135 &135944442992589438
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1467473575496654}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3.29
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136401413132630794
 CapsuleCollider:
   m_ObjectHideFlags: 1

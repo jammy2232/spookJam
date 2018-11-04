@@ -5,14 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour, IHealth {
 
-    private enum PLAYERSTATE
+    public enum PLAYERSTATE
     {
         moving,
         firing,
         dead
     }
 
-    private PLAYERSTATE playerState = PLAYERSTATE.moving;
+    public PLAYERSTATE playerState = PLAYERSTATE.moving;
     public enum PlayerNumber { PLAYER1, PLAYER2, KEYBOARDTEST };
 
     public enum Platform
@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour, IHealth {
     private string HorizontalAim;
     private string VerticalAim;
     private string Fire;
+
+    private bool hittable = true;
 
 
     // Setting the speed for movement
@@ -50,7 +52,8 @@ public class PlayerController : MonoBehaviour, IHealth {
     private GunController gunController;
     private RenderComponent playerRenderer;
     private bool goingLeft;
-    
+    private float hitInvlunerabilityTimer = 0.5f;
+    public bool die;
 
 	// Use this for initialization
 	void Start ()
@@ -104,6 +107,8 @@ public class PlayerController : MonoBehaviour, IHealth {
             case PLAYERSTATE.dead:
                 break;
         }
+
+	    if (die) Die();
 	}
 
     private void ControlGun()
@@ -178,7 +183,56 @@ public class PlayerController : MonoBehaviour, IHealth {
 
     public void TakeDamage(int damage, float hitAngle)
     {
+        if (!hittable) return;
+        StartCoroutine(StartInvincibility());
         health -= damage;
+        if (health <= 0) Die();
+    }
+    
+    private IEnumerator StartInvincibility()
+    {
+        hittable = false;
+        yield return new WaitForSeconds(hitInvlunerabilityTimer);
+        hittable = true;
     }
 
+    private void Die()
+    {
+        playerState = PLAYERSTATE.dead;
+        transform.GetComponentInChildren<SpriteRenderer>().color = Color.grey;
+        health = 0;
+    }
+
+    public void Revive()
+    {
+        playerState = PLAYERSTATE.moving;
+        transform.GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        health = 30;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        var otherPlayer = other.GetComponent<PlayerController>();
+        if (otherPlayer!= null && !otherPlayer.gameObject.CompareTag(this.tag))
+        {
+            if (otherPlayer.playerState == PLAYERSTATE.dead)
+                StartCoroutine(StartRevive(otherPlayer));
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        var otherPlayer = other.GetComponent<PlayerController>();
+        if (otherPlayer!= null && !otherPlayer.gameObject.CompareTag(this.tag))
+        {
+            if (otherPlayer.playerState == PLAYERSTATE.dead)
+                StopCoroutine(StartRevive(otherPlayer));
+        }
+    }
+
+    private IEnumerator StartRevive(PlayerController playerController)
+    {
+        yield return new WaitForSeconds(2);
+        playerController.Revive();
+    }
 }
