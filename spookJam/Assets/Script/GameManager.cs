@@ -56,6 +56,9 @@ public class GameManager : MonoBehaviour
         // Force all the correct state of the menus
         mainMenu.SetActive(true);
         tutorialMenu.SetActive(false);
+        gameOverUI.SetActive(false);
+        mainGameUI.SetActive(false);
+        pauseMenu.SetActive(false);
 
         // subscribe to relevent events 
 
@@ -122,6 +125,7 @@ public class GameManager : MonoBehaviour
 
         // Hide the main Menu
         tutorialMenu.SetActive(false);
+        mainGameUI.SetActive(true);
 
         // Move the game state
         gameState = GameState.Play;

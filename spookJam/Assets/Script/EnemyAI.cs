@@ -121,6 +121,9 @@ public class EnemyAI : MonoBehaviour, IHealth
         GameObject particle = Instantiate(effect);
         // Place it in the correct position
         particle.transform.position = transform.position;
+        // Send an event that the enemy has dies
+        if (OnEnemyDied != null)
+            OnEnemyDied();
         // Wait for the animation to play
         yield return new WaitForSeconds(timeToDie);
         // Delete the objects once thier dead
