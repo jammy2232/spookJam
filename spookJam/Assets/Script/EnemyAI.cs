@@ -6,6 +6,11 @@ using UnityEngine;
 [RequireComponent(typeof(RenderComponent))]
 public class EnemyAI : MonoBehaviour, IHealth
 {
+
+    // Events to inform different systems of thier status
+    public delegate void EnemyDied();
+    public static event EnemyDied OnEnemyDied;
+
     public enum Type { Ghost, Buster }
     public enum State { Alive, Dieing, Dead }
 
@@ -15,7 +20,7 @@ public class EnemyAI : MonoBehaviour, IHealth
     public float forceMovement = 1.0f;
     public Sprite deadSprite;
 
-    [HideInInspector]
+    // [HideInInspector]
     public Transform Target;
 
     // Private
