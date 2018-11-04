@@ -39,8 +39,6 @@ public class PlayerController : MonoBehaviour, IHealth {
 
     [SerializeField]
     private float shootingFreezeTime = 0.05f;
-    
-    
 
     [SerializeField]
     private int health = 150;
