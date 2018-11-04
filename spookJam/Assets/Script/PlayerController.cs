@@ -15,13 +15,21 @@ public class PlayerController : MonoBehaviour, IHealth {
     private PLAYERSTATE playerState = PLAYERSTATE.moving;
     public enum PlayerNumber { PLAYER1, PLAYER2, KEYBOARDTEST };
 
+    public enum Platform
+    {
+        WINDOWS,
+        MAC
+    };
+    
     // Handling the input device
+    public Platform platform;
     public PlayerNumber playerNumber;
     private string Horizontal;
     private string Vertical;
     private string HorizontalAim;
     private string VerticalAim;
     private string Fire;
+
 
     // Setting the speed for movement
     [SerializeField]
@@ -32,8 +40,7 @@ public class PlayerController : MonoBehaviour, IHealth {
     [SerializeField]
     private float shootingFreezeTime = 0.05f;
     
-    [SerializeField]
-    private bool keyboardTestMode = false;
+    
 
     [SerializeField]
     private int health = 150;
@@ -44,6 +51,8 @@ public class PlayerController : MonoBehaviour, IHealth {
     private Rigidbody rigidbody;
     private GunController gunController;
     private RenderComponent playerRenderer;
+    private bool goingLeft;
+    
 
 	// Use this for initialization
 	void Start ()
@@ -59,7 +68,10 @@ public class PlayerController : MonoBehaviour, IHealth {
             Vertical = "Vertical1";
             HorizontalAim = "HorizontalAim1";
             VerticalAim = "VerticalAim1";
-            Fire = "Fire1";
+            if (platform == Platform.MAC)
+                Fire = "Fire1";
+            else
+                Fire = "Fire1Windows";
         }
         else if (playerNumber == PlayerNumber.PLAYER2)
         {
@@ -67,7 +79,10 @@ public class PlayerController : MonoBehaviour, IHealth {
             Vertical = "Vertical2";
             HorizontalAim = "HorizontalAim2";
             VerticalAim = "VerticalAim2";
-            Fire = "Fire2";
+            if (platform == Platform.MAC)
+                Fire = "Fire2";
+            else
+                Fire = "Fire2Windows";
         }
         else
         {
@@ -95,12 +110,9 @@ public class PlayerController : MonoBehaviour, IHealth {
 
     private void ControlGun()
     {
-
-        Debug.Log(Input.GetAxis(Fire));
-
-       if (Input.GetAxis(Fire) < 0.2f) return;
+       if (!Input.GetButton(Fire)) return;
        
-        var angleFired = Input.GetAxis(HorizontalAim);
+        var angleFired = goingLeft ? -1:1;
         FireGun(angleFired);
            
     }
@@ -138,22 +150,20 @@ public class PlayerController : MonoBehaviour, IHealth {
         xDelt = Input.GetAxis(Horizontal);
         zDelt = Input.GetAxis(Vertical);
 
+        Debug.Log(zDelt);
+
         // Update the render of the character
-        bool goingUpwards = false;
-        bool goingLeft = false;
+        if (xDelt != 0)
+            goingLeft = xDelt < 0.0f;
+        
 
-        if (xDelt < 0.0f)
-        {
-            goingLeft = true;
-        }
-
-        if (zDelt <= 0.0f)
-        {
-            goingUpwards = true;
-        }
+        
+        bool goingUpwards = zDelt <= 0.0f;
 
         // Apply the new graphics
         playerRenderer.ChangeSpriteDirection(goingUpwards, goingLeft);
+        
+        gunController.MatchSpriteFlip(goingLeft);
 
         //Adjust for rotation
         var horizMove = transform.right * xDelt;
