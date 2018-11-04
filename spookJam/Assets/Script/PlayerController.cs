@@ -13,30 +13,24 @@ public class PlayerController : MonoBehaviour, IHealth {
     }
 
     private PLAYERSTATE playerState = PLAYERSTATE.moving;
+    public enum PlayerNumber { PLAYER1, PLAYER2, KEYBOARDTEST };
+
+    // Handling the input device
+    public PlayerNumber playerNumber;
+    private string Horizontal;
+    private string Vertical;
+    private string HorizontalAim;
+    private string VerticalAim;
+    private string Fire;
 
     [SerializeField]
-    private int playerNumber = 1;
+    private bool keyboardTestMode = false;
 
-    private string joystickName;
-
-
-    private string fireButton = "10";
-
-
-    private string horizontalAxisMovement = "8";
-
-
-    private string verticalAxisMovement = "8";
-
-
-    private string horizontalAxisLook = "9";
-
-
-    private string verticalAxisLook = "9";
-    
-
+    // Setting the speed for movement
     [SerializeField]
     private float moveSpeed = 1.0f;
+ 
+    // private variables
 
     [SerializeField]
     private float shootingFreezeTime = 0.05f;
@@ -51,16 +45,42 @@ public class PlayerController : MonoBehaviour, IHealth {
     private float knockback = 10;
     
     private Rigidbody rigidbody;
-
     private GunController gunController;
-
+    private RenderComponent playerRenderer;
 
 	// Use this for initialization
 	void Start ()
     {
         rigidbody = GetComponent<Rigidbody>();
         gunController = GetComponentInChildren<GunController>();
-        joystickName = "joystick " + playerNumber + " button ";
+        playerRenderer = GetComponent<RenderComponent>();
+
+        // Setup the player input
+        if(playerNumber == PlayerNumber.PLAYER1)
+        {
+            Horizontal = "Horizontal1";
+            Vertical = "Vertical1";
+            HorizontalAim = "HorizontalAim1";
+            VerticalAim = "VerticalAim1";
+            Fire = "Fire1";
+        }
+        else if (playerNumber == PlayerNumber.PLAYER2)
+        {
+            Horizontal = "Horizontal2";
+            Vertical = "Vertical2";
+            HorizontalAim = "HorizontalAim2";
+            VerticalAim = "VerticalAim2";
+            Fire = "Fire2";
+        }
+        else
+        {
+            Horizontal = "Horizontal";
+            Vertical = "Vertical";
+            HorizontalAim = "KeyboardHorizontalAim";
+            VerticalAim = "KeyboardVerticalAim";
+            Fire = "KeyboardFire";
+        }
+
     }
 	
 	// Update is called once per frame
@@ -122,18 +142,31 @@ public class PlayerController : MonoBehaviour, IHealth {
     //Get movement velocity
     private void GetMovement()
     {
-        float xDelt;
-        float zDelt;
-        if (keyboardTestMode)
+
+        float xDelt = 0.0f;
+        float zDelt = 0.0f;
+
+        xDelt = Input.GetAxis(Horizontal);
+        zDelt = Input.GetAxis(Vertical);
+
+        Debug.Log(zDelt);
+
+        // Update the render of the character
+        bool goingUpwards = false;
+        bool goingLeft = false;
+
+        if (xDelt < 0.0f)
         {
-            xDelt = Input.GetAxis("Horizontal");
-            zDelt = Input.GetAxis("Vertical");
+            goingLeft = true;
         }
-        else
+
+        if (zDelt <= 0.0f)
         {
-            xDelt = Input.GetAxisRaw(joystickName + horizontalAxisMovement);
-            zDelt = Input.GetAxisRaw(joystickName + verticalAxisMovement);
+            goingUpwards = true;
         }
+
+        // Apply the new graphics
+        playerRenderer.ChangeSpriteDirection(goingUpwards, goingLeft);
 
         //Adjust for rotation
         var horizMove = transform.right * xDelt;
@@ -145,6 +178,7 @@ public class PlayerController : MonoBehaviour, IHealth {
         {
             rigidbody.MovePosition((rigidbody.position + velocity * Time.deltaTime));
         }
+    
     }
 
     public void TakeDamage(int damage, float hitAngle)
