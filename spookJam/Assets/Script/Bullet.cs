@@ -67,8 +67,8 @@ public class Bullet : MonoBehaviour {
 
 	private IEnumerator DestroyBullet()
 	{
-		yield return new WaitForEndOfFrame();
-		Destroy(this);
+		yield return null;
+		Destroy(this.gameObject);
 	}
 
 }

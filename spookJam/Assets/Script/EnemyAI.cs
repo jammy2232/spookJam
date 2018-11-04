@@ -134,6 +134,7 @@ public class EnemyAI : MonoBehaviour, IHealth
     public void TakeDamage(int damage, float hitAngle)
     {
         if (!hittable) return;
+        StartCoroutine(StartInvincibility());
         health -= damage;
         rb.AddForce(hitAngle*knockback, 0 , 0);
         

@@ -10,8 +10,8 @@
           <e p="billBoardRendering.cs" t="Include" />
           <e p="Bullet.cs" t="Include" />
           <e p="CameraTarget.cs" t="Include" />
-          <e p="DeathAnimation.cs" t="Include" />
           <e p="EnemyAI.cs" t="Include" />
+          <e p="GameManager.cs" t="Include" />
           <e p="GunController.cs" t="Include" />
           <e p="IHealth.cs" t="Include" />
           <e p="PlayerController.cs" t="Include" />

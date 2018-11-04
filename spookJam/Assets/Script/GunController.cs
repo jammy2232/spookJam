@@ -25,6 +25,8 @@ public class GunController : MonoBehaviour {
     private float timeSinceFire;
 
     private bool readyToFire;
+
+	private bool needsFlip = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -58,6 +60,13 @@ public class GunController : MonoBehaviour {
 			bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
 			bullet.GetComponent<Bullet>().FireBullet(angleFired, damage, targetEnemyType, maxRandomVariation);
 		}
+	}
+
+	public void MatchSpriteFlip(bool goingLeft)
+	{
+		if (needsFlip == goingLeft) return;
+		needsFlip = goingLeft;
+		transform.localPosition = new Vector3(-transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
 	}
 
 	private void TrackFireCooldown()
