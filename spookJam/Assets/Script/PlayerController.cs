@@ -93,8 +93,6 @@ public class PlayerController : MonoBehaviour, IHealth {
     private void ControlGun()
     {
 
-        Debug.Log(Input.GetAxis(Fire));
-
        if (Input.GetAxis(Fire) < 0.2f) return;
        
         var angleFired = Input.GetAxis(HorizontalAim);

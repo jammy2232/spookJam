@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1497271096819516
 GameObject:
   m_ObjectHideFlags: 0
@@ -112,12 +112,12 @@ Rigidbody:
   m_GameObject: {fileID: 1467473575496654}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.3
+  m_Drag: 100
   m_AngularDrag: 0.1
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &114360072022515380
 MonoBehaviour:
@@ -130,16 +130,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27032922a4142074996997decb56f6f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 2
-  fireButton: 10
-  horizontalAxisMovement: 8
-  verticalAxisMovement: 8
-  horizontalAxisLook: 9
-  verticalAxisLook: 9
-  moveSpeed: 1
+  playerNumber: 1
+  moveSpeed: 10
   shootingFreezeTime: 0.05
-  keyboardTestMode: 1
   health: 150
+  knockback: 10
 --- !u!114 &114614788147132946
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -180,8 +175,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5bed27acd090343a38fb14bcbbdd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteToRender: {fileID: 21300000, guid: af2ec9fd95f580641ab2fb9f429ee8cf, type: 3}
-  spriteRenderer: {fileID: 0}
+  backSprite: {fileID: 21300000, guid: 81a2bbb43208d4975bfdbaa05197148a, type: 3}
+  frontSprite: {fileID: 21300000, guid: 50fb21595dc6343fab1be3a04cd454b4, type: 3}
+  bobAmplitude: 0.03
+  bobFrequency: 3
 --- !u!136 &136401413132630794
 CapsuleCollider:
   m_ObjectHideFlags: 1

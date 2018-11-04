@@ -112,7 +112,7 @@ Rigidbody:
   m_GameObject: {fileID: 1840711385621950}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0.3
+  m_Drag: 100
   m_AngularDrag: 0.1
   m_UseGravity: 0
   m_IsKinematic: 0
@@ -148,16 +148,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27032922a4142074996997decb56f6f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
-  fireButton: 10
-  horizontalAxisMovement: 8
-  verticalAxisMovement: 8
-  horizontalAxisLook: 9
-  verticalAxisLook: 9
+  playerNumber: 0
   moveSpeed: 10
   shootingFreezeTime: 0.05
-  keyboardTestMode: 1
   health: 150
+  knockback: 10
 --- !u!114 &114563615567249606
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -169,8 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c5bed27acd090343a38fb14bcbbdd7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteToRender: {fileID: 21300000, guid: af2ec9fd95f580641ab2fb9f429ee8cf, type: 3}
-  spriteRenderer: {fileID: 0}
+  backSprite: {fileID: 21300000, guid: abe440ce4fad44c16b61ff651f8a3811, type: 3}
+  frontSprite: {fileID: 21300000, guid: 19dfbc27d920949db99239b61e1b901b, type: 3}
+  bobAmplitude: 0.03
+  bobFrequency: 3
 --- !u!114 &114728279830253766
 MonoBehaviour:
   m_ObjectHideFlags: 1
