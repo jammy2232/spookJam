@@ -47,7 +47,11 @@ public class PlayerController : MonoBehaviour, IHealth {
 
     [SerializeField]
     private float knockback = 10;
-    
+
+    [SerializeField]
+    private float knockbackOnHit = 1000;
+
+    private float redValue;
     private Rigidbody rigidbody;
     private GunController gunController;
     private RenderComponent playerRenderer;
@@ -126,7 +130,7 @@ public class PlayerController : MonoBehaviour, IHealth {
 
         if (gunController.FireGun(angleFired, shootingFreezeTime))
         {
-            StartCoroutine(StartFiring());
+            //StartCoroutine(StartFiring());
             rigidbody.AddForce(-angleFired*knockback, 0, 0);
         }
     }
@@ -183,10 +187,21 @@ public class PlayerController : MonoBehaviour, IHealth {
 
     public void TakeDamage(int damage, float hitAngle)
     {
-        if (!hittable) return;
+        if (!hittable || playerState == PLAYERSTATE.dead) return;
+
         StartCoroutine(StartInvincibility());
-        health -= damage;
+
+        if(health >0)
+            health -= damage;
+
+        redValue = (float)health / 150.0f;
+
+        rigidbody.AddForce(hitAngle * knockback, 0, 0);
+
+        transform.GetComponentInChildren<SpriteRenderer>().color = new Color(1.0f, redValue, redValue);
+
         if (health <= 0) Die();
+
     }
     
     private IEnumerator StartInvincibility()
@@ -206,8 +221,9 @@ public class PlayerController : MonoBehaviour, IHealth {
     public void Revive()
     {
         playerState = PLAYERSTATE.moving;
-        transform.GetComponentInChildren<SpriteRenderer>().color = Color.white;
         health = 30;
+        redValue = (float)health / 150.0f;
+        transform.GetComponentInChildren<SpriteRenderer>().color = new Color(1.0f, redValue, redValue);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -233,6 +249,7 @@ public class PlayerController : MonoBehaviour, IHealth {
     private IEnumerator StartRevive(PlayerController playerController)
     {
         yield return new WaitForSeconds(2);
-        playerController.Revive();
+        if (playerState != PLAYERSTATE.dead)
+            playerController.Revive();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour 
 {
@@ -8,7 +9,7 @@ public class GameManager : MonoBehaviour
 #pragma warning disable
 
     // When the game starts the game is on the main menu
-    enum GameState { MainMenu, PauseMenu, Play, TutorialScreen }
+    enum GameState { MainMenu, PauseMenu, Play, TutorialScreen, GameOver }
     GameState gameState = GameState.MainMenu;
 
     // This is a reference to the main menu/Tutorial Screen
@@ -94,6 +95,16 @@ public class GameManager : MonoBehaviour
                     SpawnARandomEnemy();
                     timer = 0.0f;
                 }
+
+                // Check for both players are dead 
+                if (playerOne.GetComponent<PlayerController>().playerState == PlayerController.PLAYERSTATE.dead
+                    && playerTwo.GetComponent<PlayerController>().playerState == PlayerController.PLAYERSTATE.dead)
+                {
+                    gameOverUI.SetActive(true);
+                    mainGameUI.SetActive(false);
+                    gameState = GameState.GameOver;
+                }
+
 
                 break;
         }
@@ -192,6 +203,15 @@ public class GameManager : MonoBehaviour
     {
 
         currentRate = initialSpawnTime;
+
+    }
+
+
+    public void ReloadScene()
+    {
+
+        // todo Remove this awful hack
+        SceneManager.LoadScene(0);
 
     }
 

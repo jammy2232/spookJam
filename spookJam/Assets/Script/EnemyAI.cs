@@ -19,13 +19,14 @@ public class EnemyAI : MonoBehaviour, IHealth
     public State state = State.Alive;
     public float forceMovement = 1.0f;
     public Sprite deadSprite;
+    public int Damage = 15;
 
     // [HideInInspector]
     public Transform Target;
 
     // Private
     private Rigidbody rb;
-    private SpriteRenderer sr;
+    private RenderComponent sr;
 
     // Effect to Spawn
     public GameObject effect;
@@ -53,7 +54,7 @@ public class EnemyAI : MonoBehaviour, IHealth
         }
 
         // Get reference to the sprite renderer
-      //  sr = GetComponent<RenderComponent>().spriteRenderer;
+        sr = GetComponent<RenderComponent>();
 
         // Get the rigid body
         rb = GetComponent<Rigidbody>();
@@ -97,18 +98,29 @@ public class EnemyAI : MonoBehaviour, IHealth
     void Move()
     {
 
+        Vector3 directionToTarget;
+
         // Simple Follow Script
         if (type == Type.Ghost)
         {
-            Vector3 directionToTarget = Target.position - transform.position;
-            rb.AddForce(directionToTarget.normalized * forceMovement);
+            directionToTarget = Target.position - transform.position;
+            rb.AddForce(directionToTarget.normalized * forceMovement * Time.deltaTime);
         }
         else
         {
             // Ghost Busters don't float
-            Vector3 directionToTarget = Target.position - transform.position;
+            directionToTarget = Target.position - transform.position;
             directionToTarget.y = 0.0f;
-            rb.AddForce(directionToTarget.normalized * forceMovement);
+            rb.AddForce(directionToTarget.normalized * forceMovement * Time.deltaTime);
+        }
+
+        if(rb.velocity.x > 0.0f)
+        {
+            sr.ChangeSpriteDirection(false, false);
+        }
+        else
+        {
+            sr.ChangeSpriteDirection(false, true);
         }
 
     }
@@ -145,6 +157,22 @@ public class EnemyAI : MonoBehaviour, IHealth
         hittable = false;
         yield return new WaitForSeconds(hitInvlunerabilityTimer);
         hittable = true;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.CompareTag(Target.tag))
+        {
+            float hitAngle = other.transform.position.x - transform.position.x;
+
+            if (hitAngle > 0.0f)
+                hitAngle = 1.0f;
+            else
+                hitAngle = -1.0f;
+
+            other.gameObject.GetComponent<IHealth>().TakeDamage(Damage, hitAngle);
+        }
+
     }
 
 }
