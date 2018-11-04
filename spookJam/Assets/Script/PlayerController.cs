@@ -98,22 +98,11 @@ public class PlayerController : MonoBehaviour, IHealth {
 
     private void ControlGun()
     {
-        if (keyboardTestMode && !Input.GetButton("Fire1")) return;
-        else if (!keyboardTestMode && !Input.GetButton(joystickName + fireButton)) return;
-        
-        
-        
-        if (keyboardTestMode)
-        {
-            var angleFired =  Input.GetAxisRaw("HorizontalAim");
-            FireGun(angleFired);
-        }
-        else
-        {
-            var angleFired = Input.GetAxis(joystickName + horizontalAxisLook);
-            FireGun(angleFired);
-            
-        }
+       if (!Input.GetButton(Fire)) return;
+       
+        var angleFired = Input.GetAxis(HorizontalAim);
+        FireGun(angleFired);
+           
     }
 
     private void FireGun(float angleFired)

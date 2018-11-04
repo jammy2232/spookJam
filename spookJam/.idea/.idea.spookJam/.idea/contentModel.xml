@@ -8,6 +8,7 @@
       <e p="Assets" t="Include">
         <e p="Script" t="Include">
           <e p="billBoardRendering.cs" t="Include" />
+          <e p="Bullet.cs" t="Include" />
           <e p="CameraTarget.cs" t="Include" />
           <e p="DeathAnimation.cs" t="Include" />
           <e p="EnemyAI.cs" t="Include" />
