@@ -23,13 +23,13 @@ public class GameScore : MonoBehaviour
     void UpdateScore()
     {
         score += 10;
-        scoreText.text = score.ToString("D10");
+        scoreText.text = score.ToString("D5");
     }
 
     void ResetScore()
     {
         score = 0;
-        scoreText.text = score.ToString("D10");
+        scoreText.text = score.ToString("D5");
     }
 
 }
