@@ -36,7 +36,7 @@ public class LightController : MonoBehaviour
 
     void Start()
     {
-        timerToFlicker = Random.Range(5.0f, 10.0f);
+        timerToFlicker = Random.Range(2.0f, 10.0f);
         insideLightColor = insideLight.color;
         OutsideLightColor = lighting[0].color;
         flickerPeriod = Random.Range(flickerPeriodmin, flickerPeriodmax);
