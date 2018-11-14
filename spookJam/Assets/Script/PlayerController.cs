@@ -157,8 +157,6 @@ public class PlayerController : MonoBehaviour, IHealth {
         xDelt = Input.GetAxis(Horizontal);
         zDelt = Input.GetAxis(Vertical);
 
-        Debug.Log(zDelt);
-
         // Update the render of the character
         if (xDelt != 0)
             goingLeft = xDelt < 0.0f;

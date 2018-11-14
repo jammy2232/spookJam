@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// Score listens for enemies dying and adds a fixed amount to the score outputing it to the Text Component.
 public class GameScore : MonoBehaviour 
 {
 

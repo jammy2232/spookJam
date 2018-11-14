@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
         }
 
         // Spawn a random z between -15 and 15
-        position.z = Random.Range(-15.0f, 15.0f);
+        position.z = Random.Range(-10.0f, 10.0f);
 
         GameObject enemy;
 
