@@ -65,17 +65,15 @@ public class GameManager : MonoBehaviour
 
     }
 
-    // set the initial case
-    private void OnDisable()
-    {
-
-        // unsubscribe to relevent events 
-
-    }
-
     // Use this for initialization
     void Start()
     {
+
+        // Hide Cursor 
+        Cursor.visible = false;
+
+        // Set a target framerate for slower machines 
+        Application.targetFrameRate = 30;
 
     }
 
@@ -136,6 +134,22 @@ public class GameManager : MonoBehaviour
                 if (Input.GetButtonDown("Start") || Input.GetButtonDown("Submit"))
                 {
                     EndTutorial();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape) ||
+                    Input.GetButtonDown("Quit1") ||
+                    Input.GetButtonDown("Quit2"))
+                {
+                    ReloadScene();
+                }
+
+                break;
+
+            case GameState.GameOver:
+
+                if (Input.GetButtonDown("Start") || Input.GetButtonDown("Submit"))
+                {
+                    ReloadScene();
                 }
 
                 if (Input.GetKeyDown(KeyCode.Escape) ||
