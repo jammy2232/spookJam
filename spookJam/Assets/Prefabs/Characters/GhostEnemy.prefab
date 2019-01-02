@@ -36,10 +36,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4279585827838100}
-  - component: {fileID: 136859155365294492}
   - component: {fileID: 114872931730149086}
   - component: {fileID: 114484514661890966}
   - component: {fileID: 54924330454552524}
+  - component: {fileID: 65235316998258206}
   m_Layer: 0
   m_Name: GhostEnemy
   m_TagString: GhostEnemy
@@ -89,6 +89,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &65235316998258206
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1894089806537336}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.52, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114081916337744388
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -119,7 +131,7 @@ MonoBehaviour:
   Target: {fileID: 0}
   effect: {fileID: 1056309017177012, guid: 43753bfc164814eb09871e657eb0d954, type: 2}
   timeToDie: 3
-  knockback: 500
+  knockback: 125
 --- !u!114 &114872931730149086
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,22 +145,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backSprite: {fileID: 21300000, guid: 4935a8ff23fac46d683e9ab74e59b08e, type: 3}
   frontSprite: {fileID: 21300000, guid: 4935a8ff23fac46d683e9ab74e59b08e, type: 3}
+  renderMaterial: {fileID: 2100000, guid: ba1368aa701a418419dc4e10bf34a567, type: 2}
   localPlacement: {x: 0, y: 0.5, z: 0}
   bobAmplitude: 0.005
   bobFrequency: 3
---- !u!136 &136859155365294492
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1894089806537336}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1
-  m_Height: 3
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212018979217691146
 SpriteRenderer:
   m_ObjectHideFlags: 1

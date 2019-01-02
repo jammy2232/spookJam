@@ -85,7 +85,7 @@ public class EnemyAI : MonoBehaviour, IHealth
             case State.Dieing:
              //   sr.sprite = deadSprite;
                 rb.isKinematic = true;
-                GetComponent<CapsuleCollider>().enabled = false;;
+                GetComponent<BoxCollider>().enabled = false;;
                 StartCoroutine(Die());
                 state = State.Dead;
                 break;

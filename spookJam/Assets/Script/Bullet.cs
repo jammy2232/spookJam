@@ -8,9 +8,7 @@ public class Bullet : MonoBehaviour {
     private float bulletSpeed = 500.0f;
 
     private string targetTag;
-
 	private int damage;
-
 	private float hitAngle;
 	
 
@@ -62,7 +60,8 @@ public class Bullet : MonoBehaviour {
 	    else if (other.gameObject.CompareTag(Tags.WallTag))
 	    {
 		   StartCoroutine(DestroyBullet());
-	    }
+
+        }
     }
 
 	private IEnumerator DestroyBullet()

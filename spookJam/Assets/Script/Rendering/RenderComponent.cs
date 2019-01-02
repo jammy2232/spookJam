@@ -11,6 +11,7 @@ public class RenderComponent : MonoBehaviour
     [Header("Sprites")]
     public Sprite backSprite = null;
     public Sprite frontSprite = null;
+    public Material renderMaterial = null;
 
     [Header("BillBoard Setup")]
     public Vector3 localPlacement;
@@ -37,6 +38,12 @@ public class RenderComponent : MonoBehaviour
         if (!frontSprite || !backSprite)
         {
             Debug.LogError(gameObject.name + " has no sprites assigned to either of the front or back on the rendercomponent.");
+        }
+
+        // Validate the render material 
+        if(!renderMaterial)
+        {
+            Debug.LogError(gameObject.name + " has no renderer material on the rendercomponent.");
         }
 
         // Add the billboard component required
@@ -91,6 +98,11 @@ public class RenderComponent : MonoBehaviour
         // Add the BillBoarding component and Sprite Rendering 
         billboard.AddComponent<BillBoardRendering>();
         spriteRenderer = billboard.AddComponent<SpriteRenderer>();
+
+        // Add the sprites assuming the sprite is facing right and front
+        spriteRenderer.sprite = frontSprite;
+        spriteRenderer.material = renderMaterial;
+        spriteRenderer.flipX = true;
 
     }
 

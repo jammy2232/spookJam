@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4031001805549082}
   - component: {fileID: 114262585147229876}
+  - component: {fileID: 114036307221563252}
   m_Layer: 0
   m_Name: Gun
   m_TagString: Untagged
@@ -52,11 +53,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4305260582592328}
-  - component: {fileID: 136429197637078990}
   - component: {fileID: 114563615567249606}
   - component: {fileID: 54170678053724980}
   - component: {fileID: 114280388718937672}
-  - component: {fileID: 135505761190225620}
+  - component: {fileID: 65086154518781584}
   m_Layer: 0
   m_Name: PlayerOne
   m_TagString: ChildPlayer
@@ -97,7 +97,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1840711385621950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: -0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4031001805549082}
@@ -120,6 +120,35 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 1
+--- !u!65 &65086154518781584
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1840711385621950}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.5, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114036307221563252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1363524414236720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5bed27acd090343a38fb14bcbbdd7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backSprite: {fileID: 21300000, guid: 17bbab6cc1f4c714a83e68700dff414b, type: 3}
+  frontSprite: {fileID: 21300000, guid: 17bbab6cc1f4c714a83e68700dff414b, type: 3}
+  renderMaterial: {fileID: 2100000, guid: ba1368aa701a418419dc4e10bf34a567, type: 2}
+  localPlacement: {x: 0.25, y: 0, z: 0}
+  bobAmplitude: 0.005
+  bobFrequency: 5
 --- !u!114 &114262585147229876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -171,6 +200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backSprite: {fileID: 21300000, guid: 96fc3fd49d07c43dc88f85f7d15fc411, type: 3}
   frontSprite: {fileID: 21300000, guid: 050cde44293b4432e815a997b973f773, type: 3}
+  renderMaterial: {fileID: 2100000, guid: ba1368aa701a418419dc4e10bf34a567, type: 2}
   localPlacement: {x: 0, y: 0.5, z: 0}
   bobAmplitude: 0.005
   bobFrequency: 5
@@ -185,31 +215,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e7cfbf2aafdf024baf8f30ce2179775, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!135 &135505761190225620
-SphereCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1840711385621950}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 3.29
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!136 &136429197637078990
-CapsuleCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1840711385621950}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &212457369583549466
 SpriteRenderer:
   m_ObjectHideFlags: 1
