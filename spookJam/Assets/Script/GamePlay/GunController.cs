@@ -26,11 +26,17 @@ public class GunController : MonoBehaviour {
 
     private bool readyToFire;
 
+    private RenderComponent burstRenderer;
+
 	private bool needsFlip = false;
+
+
 	// Use this for initialization
 	void Start () {
-		
-	}
+
+        burstRenderer = GetComponent<RenderComponent>();
+        burstRenderer.Visible(false);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -39,17 +45,19 @@ public class GunController : MonoBehaviour {
 
     public bool FireGun(float angleFired, float shootingFreezeTime)
     {
+
         if (!readyToFire) return false;
         readyToFire = false;
+
         timeSinceFire = 0;
 
 	    var waitTime = shootingFreezeTime / burstSize;
-	    
 	    
 		StartCoroutine(SpawnBullet(angleFired, waitTime));
 
 	    return true;
     }
+
 
 	private IEnumerator SpawnBullet(float angleFired, float waitTime)
 	{
@@ -60,14 +68,31 @@ public class GunController : MonoBehaviour {
 			bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
 			bullet.GetComponent<Bullet>().FireBullet(angleFired, damage, targetEnemyType, maxRandomVariation);
 		}
-	}
 
-	public void MatchSpriteFlip(bool goingLeft)
+        // apply the fire
+        StartCoroutine(burstFireShow((angleFired < 0.0f)));
+
+
+    }
+
+    // Show the burst fire for a breif time
+    private IEnumerator burstFireShow(bool left)
+    {
+        burstRenderer.ChangeSpriteDirection(true, left);
+        burstRenderer.Visible(true);
+        yield return new WaitForSeconds(0.2f * fireRate);
+        burstRenderer.Visible(false);
+    }
+
+
+
+    public void MatchSpriteFlip(bool goingLeft)
 	{
 		if (needsFlip == goingLeft) return;
 		needsFlip = goingLeft;
 		transform.localPosition = new Vector3(-transform.localPosition.x, transform.localPosition.y, transform.localPosition.z);
 	}
+
 
 	private void TrackFireCooldown()
     {

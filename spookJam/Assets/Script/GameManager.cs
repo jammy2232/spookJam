@@ -83,33 +83,72 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 
-        switch(gameState)
+        switch (gameState)
         {
             case GameState.Play:
 
                 // Spawn an enemy at time intervals
                 timer += Time.deltaTime;
 
-                if(timer > currentRate)
+                if (timer > currentRate)
                 {
                     SpawnARandomEnemy();
                     timer = 0.0f;
                 }
 
-                // Check for both players are dead 
-                if (playerOne.GetComponent<PlayerController>().playerState == PlayerController.PLAYERSTATE.dead
-                    && playerTwo.GetComponent<PlayerController>().playerState == PlayerController.PLAYERSTATE.dead)
+                // Check for both players are dead or one quits
+                if ((playerOne.GetComponent<PlayerController>().playerState == PlayerController.PLAYERSTATE.dead
+                    && playerTwo.GetComponent<PlayerController>().playerState == PlayerController.PLAYERSTATE.dead))
                 {
                     gameOverUI.SetActive(true);
                     mainGameUI.SetActive(false);
                     gameState = GameState.GameOver;
                 }
 
+                if (Input.GetKeyDown(KeyCode.Escape) ||
+                    Input.GetButtonDown("Quit1") ||
+                    Input.GetButtonDown("Quit2"))
+                {
+                    ReloadScene();
+                }
 
                 break;
+
+                case GameState.MainMenu:
+
+                // Check for both players are dead or one quits
+                if (Input.GetKeyDown(KeyCode.Escape) ||
+                    Input.GetButtonDown("Quit1") ||
+                    Input.GetButtonDown("Quit2"))
+                {
+                    Application.Quit();
+                }
+
+                if(Input.GetButtonDown("Start") || Input.GetButtonDown("Submit"))
+                {
+                    MoveToTutorial();
+                }
+
+               break;
+
+            case GameState.TutorialScreen:
+
+                if (Input.GetButtonDown("Start") || Input.GetButtonDown("Submit"))
+                {
+                    EndTutorial();
+                }
+
+                if (Input.GetKeyDown(KeyCode.Escape) ||
+                    Input.GetButtonDown("Quit1") ||
+                    Input.GetButtonDown("Quit2"))
+                {
+                    ReloadScene();
+                }
+
+                break;
+
         }
         
-
     }
 
     // Main Menu Button Pressed 
@@ -230,10 +269,6 @@ public class GameManager : MonoBehaviour
         }
 
     }
-
-
-
-
 
 
 }

@@ -76,6 +76,13 @@ public class RenderComponent : MonoBehaviour
     }
 
 
+    // Hide the underlying sprite component
+    public void Visible(bool visible)
+    {
+        spriteRenderer.enabled = visible;
+    }
+
+
     void Update()
     {
 
@@ -104,6 +111,13 @@ public class RenderComponent : MonoBehaviour
         spriteRenderer.material = renderMaterial;
         spriteRenderer.flipX = true;
 
+    }
+
+
+    // Used to apply a colour to tint the sprite renderered
+    public void TintSprite(Color c)
+    {
+        spriteRenderer.color = c;
     }
 
 }

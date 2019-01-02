@@ -6,21 +6,9 @@ public class Bullet : MonoBehaviour {
 
     [SerializeField]
     private float bulletSpeed = 500.0f;
-
     private string targetTag;
 	private int damage;
 	private float hitAngle;
-	
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void FireBullet(float angle, int dmg, string targetEnemy, float maxRandomVariation)
     {
@@ -32,10 +20,20 @@ public class Bullet : MonoBehaviour {
 
     private IEnumerator WaitTillFire(float angle, float maxRandomVariation)
     {
+
+        // Why do this
         yield return new WaitForEndOfFrame();
+
+        // Set the bullets random attributes and calculate the force and diretion
 	    var random = Random.Range(-maxRandomVariation, maxRandomVariation);
 	    var force = transform.right * angle * bulletSpeed;
+
+        // Apply the visual modification
+        GetComponent<RenderComponent>().ChangeSpriteDirection(true, (angle < 0.0f));
+
+        // Apply the force with a random variation in the z direction
         GetComponent<Rigidbody>().AddForce(new Vector3 (force.x, force.y, force.z + random));
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -63,6 +61,7 @@ public class Bullet : MonoBehaviour {
 
         }
     }
+
 
 	private IEnumerator DestroyBullet()
 	{

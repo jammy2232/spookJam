@@ -71,7 +71,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1363524414236720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.5, y: 0, z: 0}
+  m_LocalPosition: {x: 1.25, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4305260582592328}
@@ -145,9 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backSprite: {fileID: 21300000, guid: 17bbab6cc1f4c714a83e68700dff414b, type: 3}
   frontSprite: {fileID: 21300000, guid: 17bbab6cc1f4c714a83e68700dff414b, type: 3}
-  renderMaterial: {fileID: 2100000, guid: ba1368aa701a418419dc4e10bf34a567, type: 2}
-  localPlacement: {x: 0.25, y: 0, z: 0}
-  bobAmplitude: 0.005
+  renderMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  localPlacement: {x: 0, y: 0.05, z: 0}
+  bobAmplitude: 0.0005
   bobFrequency: 5
 --- !u!114 &114262585147229876
 MonoBehaviour:
@@ -162,10 +162,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 1988918516065922, guid: 36a785070e72a95488e25f79c0d2045e,
     type: 2}
-  fireRate: 0.5
+  fireRate: 0.3
   maxRandomVariation: 80
-  damage: 30
-  burstSize: 3
+  damage: 20
+  burstSize: 1
   targetEnemyType: GhostEnemy
 --- !u!114 &114280388718937672
 MonoBehaviour:
@@ -180,11 +180,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerState: 0
   platform: 0
-  playerNumber: 2
+  playerNumber: 0
   moveSpeed: 5
   shootingFreezeTime: 0.05
   health: 150
-  knockback: 10000
+  knockback: 15000
   knockbackOnHit: 1000
   die: 0
 --- !u!114 &114563615567249606
@@ -200,9 +200,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   backSprite: {fileID: 21300000, guid: 96fc3fd49d07c43dc88f85f7d15fc411, type: 3}
   frontSprite: {fileID: 21300000, guid: 050cde44293b4432e815a997b973f773, type: 3}
-  renderMaterial: {fileID: 2100000, guid: ba1368aa701a418419dc4e10bf34a567, type: 2}
+  renderMaterial: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   localPlacement: {x: 0, y: 0.5, z: 0}
-  bobAmplitude: 0.005
+  bobAmplitude: 0.0005
   bobFrequency: 5
 --- !u!114 &114870998319877130
 MonoBehaviour:

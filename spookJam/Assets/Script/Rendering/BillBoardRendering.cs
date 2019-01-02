@@ -16,6 +16,7 @@ public class BillBoardRendering : MonoBehaviour
 
         // Set billboard rotation to match this 
         transform.rotation = Quaternion.LookRotation(direction, up);
+
     }
 
 }
